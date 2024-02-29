@@ -43,6 +43,8 @@ const displayPhone = phones => {
         phoneContainer.appendChild(phoneCard);
         
     }); 
+    // hide loading spinner 
+    toggleLoadingSpinner(false);
 }
 
 
@@ -52,6 +54,7 @@ const displayPhone = phones => {
 // একটা ইনপুট ফিল্ড এ ক্লিক করলে ভ্যালু গুলো শো করানোর জন্য নিচের কোড টি
 
 const handleSearch = () =>{
+  toggleLoadingSpinner(true)
     const searchField = document.getElementById('search-field');
    const searchText =searchField.value;
   //  console.log(searchText) 
@@ -60,12 +63,25 @@ const handleSearch = () =>{
 
  
 // একটা ইনপুট ফিল্ড এ ক্লিক করলে ভ্যালু গুলো শো করানোর জন্য নিচের কোড টি
+// handle search recap 
 
-const handleSearch2 = () =>{
-  const searchField2 = document.getElementById('search-field2');
-  const searchText2 = searchField2.value;
-  // console.log(searchText2)
-  loadPhone(searchText2)
+// const handleSearch2 = () =>{
+//    toggleLoadingSpinner(true)  //call korte hobe toggle loading spinner ta ke
+//   const searchField2 = document.getElementById('search-field2');
+//   const searchText2 = searchField2.value;
+//   // console.log(searchText2)
+//   loadPhone(searchText2)
+// }
+
+
+const toggleLoadingSpinner = (isLoading) => {
+  const loadingSpinner = document.getElementById('loading-spinner')
+  if(isLoading){
+    loadingSpinner.classList.remove('hidden')
+  }
+  else{
+    loadingSpinner.classList.add('hidden')
+  }
 }
 
 // loadPhone()
