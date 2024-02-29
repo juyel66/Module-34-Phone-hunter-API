@@ -1,5 +1,5 @@
-const loadPhone = async() =>{
-    const res = await fetch('https://openapi.programming-hero.com/api/phones?search=iphone');
+const loadPhone = async(searchText) =>{
+    const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`);
     const data =await res.json();
     const phones = data.data
     // console.log(phone)
@@ -9,13 +9,27 @@ const loadPhone = async() =>{
 
 const displayPhone = phones => {
     const phoneContainer = document.getElementById('phone-container');
+    // clear phone container cards before adding new cards 
+    phoneContainer.textContent= '';
+  // ডিস্প্লে তে যদি ১২ টার বেশি ফোন আসে তাহলে নিচের কন্ডিশন চেক করে শো ওল বাটন শো করবে 
+  const showAllContainer = document.getElementById('show-all-container')
+  if(phones.length>12){
+    showAllContainer.classList.remove('hidden')
+  }
+  else{
+    showAllContainer.classList.add('hidden');
+  }
+  
+    // clear end
+    // search limit bellow 
+    phones = phones.slice(0,12);
 
     // console.log(phones)
     phones.forEach(phone => {
         console.log(phone)
         //step-2: create a div 
         const phoneCard = document.createElement('div');
-        phoneCard.classList = `card card-compact w-96 bg-gray-100  shadow-xl`;
+        phoneCard.classList = `card card-compact p-4 bg-gray-100  shadow-xl`;
         // step-3: innerHTML
         phoneCard.innerHTML= `      <figure><img src="${phone.image}" alt="Shoes" /></figure>
         <div class="card-body">
@@ -31,4 +45,27 @@ const displayPhone = phones => {
     }); 
 }
 
-loadPhone()
+
+
+// handle search button 
+
+// একটা ইনপুট ফিল্ড এ ক্লিক করলে ভ্যালু গুলো শো করানোর জন্য নিচের কোড টি
+
+const handleSearch = () =>{
+    const searchField = document.getElementById('search-field');
+   const searchText =searchField.value;
+  //  console.log(searchText) 
+   loadPhone(searchText)
+}
+
+ 
+// একটা ইনপুট ফিল্ড এ ক্লিক করলে ভ্যালু গুলো শো করানোর জন্য নিচের কোড টি
+
+const handleSearch2 = () =>{
+  const searchField2 = document.getElementById('search-field2');
+  const searchText2 = searchField2.value;
+  // console.log(searchText2)
+  loadPhone(searchText2)
+}
+
+// loadPhone()
